@@ -1,6 +1,6 @@
-# 注册接口2
+# 登录注册接口2
 
-## 输入限制官方写法
+## 注册
 
 #### 1 注入 Validation依赖
 ````
@@ -52,3 +52,20 @@ public class GException {
     }
 }
 ````
+
+## 登录
+
+```java
+@PostMapping("/login")
+public Result<String> login(@Pattern(regexp = ("^\\S{5,16}$"))String username,@Pattern(regexp = ("^\\S{5,16}$"))String password){
+    //先看看姓名是否在数据库有
+    User uname = cjService.findByUserName(username);
+    if(uname==null){
+        return Result.error("用户名错误");
+    }
+    if(Md5Util.getMD5String(password).equals(uname.getPassword())){//先将用户输入的密码加密，在和数据库里的密文密码对比
+        return Result.success("jwt token令牌....");
+    }
+    return Result.error("密码错误");
+}
+```
