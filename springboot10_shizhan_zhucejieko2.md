@@ -19,7 +19,7 @@ public class CJController {
     private CJServiceImpl cjService;
     
     @PostMapping("/register")
-    public Result register(@Pattern(regexp = "^\\S(5,16)$")String username, @Pattern(regexp = "^\\S(5,16)$")String password){
+    public Result register(@Pattern(regexp = "^\\S{5,16}$")String username, @Pattern(regexp = "^\\S{5,16}$")String password){
         //使用@Pattern(regexp = 正则表达式-》"^\\S(范围A,范围B)$")要限制的是参数名
         User Cjuser = cjService.findByUserName(username);
         if(Cjuser==null){
