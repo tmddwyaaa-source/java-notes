@@ -1,4 +1,4 @@
-# 更新文章分类和分组校验
+# 更新文章分类和分组校验，还有删除指定分类
 ---
 ## 更新文章分类篇
 
@@ -87,6 +87,44 @@ public class Category {
         return Result.success();
     }
 ```
+---
+## 删除指定分类
+
+### Controller
+```java
+    @DeleteMapping//删除指定分类
+    public Result delete(@RequestParam @Validated(Category.Delete.class)int id){
+        categoryService.delete(id);
+        return Result.success();
+    }
+```
+
+### Service
+```java
+    @Override
+    public void delete(int id) {
+        categoryMapper.delete(id);
+    }
+```
+
+### Mapper
+```java
+    @Delete("delete from category where id = #{id}")
+    void delete(int id);
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
